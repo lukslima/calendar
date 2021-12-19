@@ -1,0 +1,38 @@
+<div class="modal" id="reminder-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><span id="reminder-modal-label">Add New</span> Reminder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="reminder-form" action="<%= api_v1_reminders_path %>">
+        <input type="hidden" name="id" id="reminder-id">
+
+        <div class="modal-body"> 
+          <div class="mb-3">
+            <label for="reminder-title" class="form-label">Tilte</label>
+            <input type="text" name="title" class="form-control" id="reminder-title" required maxlength="30">
+          </div>
+          <div class="mb-3">
+            <label for="reminder-date" class="form-label">Date</label>
+            <input type="date" name="date" class="form-control" id="reminder-date" required>
+          </div>
+          <div class="mb-3">
+            <label for="reminder-time" class="form-label">Time</label>
+            <input type="time" name="time" class="form-control" id="reminder-time" required>
+          </div>
+          <div class="mb-3">
+            <label for="reminder-color" class="form-label">Color</label>
+            <input type="color" name="color" id="reminder-color" required maxlength="7" value="#fff000">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="remove-reminder-btn" type="button" class="btn btn-danger">Remover</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

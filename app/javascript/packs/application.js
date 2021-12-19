@@ -7,6 +7,14 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import "bootstrap"
+import "../../assets/stylesheets/application.scss"
+window.bootstrap = require('bootstrap');
+
+// import "spectrum-colorpicker2"
+
+import "./calendar.js"
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

@@ -1,10 +1,6 @@
-body {
-  background-color: lightblue;
-}
-
-.container {
+.calendar-container {
   width: 80vw;
-  height: 90vh;
+  height: 95vh;
   margin: auto;
   background-color: white;
   border: solid 1px transparent;
@@ -16,6 +12,7 @@ body {
   justify-content: space-between;
   height: 70px;
   padding: 0 20px;
+  background-color: aliceblue;
 
   &__label {
     font-size: 2rem;
@@ -55,15 +52,13 @@ body {
   &__row {
     display: flex;
     flex: 1 1 0%;
-    height: 100%;
-
   }
 
   &__row-item {
     flex: 1 1 0%;
     height: 100%;
     border: solid 1px;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
 
     &--inactive {
       background-color: lightgray;
@@ -75,5 +70,53 @@ body {
       border-radius: 50px;
       background-color: orange;
     }
+  }
+
+  &__reminders {
+    height: 56px;
+    width: 150px;
+    overflow: hidden;
+    padding: 0 8px;
+  }
+
+  &__reminder {
+    display: flex;
+    align-items: center;
+    height: 16px;
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 2px;
+    border-radius: 2px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lightgray;
+    }
+  }
+
+  &__reminder-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    margin-right: 4px;
+    padding: 0 4px;
+  }
+
+  &__reminder-time {
+    margin-right: 4px;
+  }
+
+  &__reminder-title {
+    width: 80%;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: clip;
+    overflow: hidden;
+  }
+
+  &__reminder-more {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 8px;
   }
 }

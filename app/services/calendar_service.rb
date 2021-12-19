@@ -1,8 +1,8 @@
 class CalendarService
   DAY_IN_A_WEEK = 7
 
-  def initialize(params)
-    @date = date(params)
+  def initialize(date)
+    @date = date
   end
 
   def self.call(params)
@@ -20,6 +20,8 @@ class CalendarService
       previous_month: "/#{previous_month.year}/#{previous_month.month}",
       is_today: (@date.month == today.month) && (@date.year == today.year),
       current_day: today.day,
+      month: @date.month.to_s.rjust(2, '0'),
+      year: @date.year,
       rows: rows,
     )
   end
@@ -37,11 +39,5 @@ class CalendarService
       *starting_blank_days,
       *days_of_the_month
     ].in_groups_of(DAY_IN_A_WEEK, defualt_value)
-  end
-
-  def date(params)
-    return Date.today unless params[:year] || params[:month]
-
-    Date.new(params[:year].to_i, params[:month].to_i)
   end
 end
