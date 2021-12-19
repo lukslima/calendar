@@ -59,6 +59,7 @@
     height: 100%;
     border: solid 1px;
     font-size: 1.3rem;
+    position: relative;
 
     &--inactive {
       background-color: lightgray;
@@ -73,10 +74,43 @@
   }
 
   &__reminders {
-    height: 56px;
-    width: 150px;
+    position: absolute;
+    height: 50px;
+    max-width: 150px;
     overflow: hidden;
     padding: 0 8px;
+
+    &--smaller {
+      height: 30px;
+    }
+
+    &--expanded {
+      max-width: 280px;
+      overflow: unset;
+      left: 2px;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      padding: 8px;
+      height: unset;
+      background-color: white;
+      z-index: 10;
+
+      .calendar-body__close-expanded-reminder {
+        display: block;
+      }
+    }
+  }
+
+  &__close-expanded-reminder {
+    display: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+    float: right;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__reminder {
@@ -115,8 +149,16 @@
   }
 
   &__reminder-more {
+    width: 100%;
     font-size: 12px;
     font-weight: bold;
     padding: 0 8px;
+    position: absolute;
+    bottom: 0;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lightgray;
+    }
   }
 }

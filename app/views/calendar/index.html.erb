@@ -26,12 +26,15 @@
         <div class="calendar-body__row">
           <% row.each do |day| %>
             <% if day.present? %>
+              <% rows_count = @calendar.rows.length %>
+              <% reminders_limit = rows_count == 5 ? 3 : 2 %>
+
               <div data-date="<%= "#{@calendar.year}-#{@calendar.month}-#{day.to_s.rjust(2, "0")}" %>" class="calendar-body__row-item row-item-js">
                 <span class="calendar-body__row-label <%= "calendar-body__row-label--highlight" if day == @calendar.current_day && @calendar.is_today %>">
                   <%= day %>
                 </span>
-                <div class="calendar-body__reminders">
-                  
+                <div class="calendar-body__reminders <%= "calendar-body__reminders--smaller" if @calendar.rows.length == 6 %>">
+                  <div class="calendar-body__close-expanded-reminder">X</div>
                   <% selected_reminders = @reminders.select { |reminder| reminder.date.day == day } %>
                   <% selected_reminders.each do |reminder| %>
                     <div
@@ -48,8 +51,8 @@
                     </div>
                   <% end %>
                 </div>
-                <% if selected_reminders.length > 3 %>
-                  <div class="calendar-body__reminder-more"><%= selected_reminders.length - 3 %> More</div>
+                <% if selected_reminders.length > reminders_limit %>
+                  <div class="calendar-body__reminder-more"><%= selected_reminders.length - reminders_limit %> More</div>
                 <% end %>
               </div>
             <% else %>

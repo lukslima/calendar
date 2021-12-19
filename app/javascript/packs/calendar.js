@@ -3,6 +3,8 @@ $(document).on('turbolinks:load', function() {
   $(".calendar-body__reminder").click(editReminder);
   $('#reminder-form').submit(saveReminder);
   $('#remove-reminder-btn').click(removeReminder);
+  $('.calendar-body__reminder-more').click(expandReminder);
+  $('.calendar-body__close-expanded-reminder').click(closeExpandReminder);
 }); 
 
 const saveReminder = (e) => {
@@ -37,31 +39,40 @@ const saveReminder = (e) => {
 
 const appendNewReminder = (reminder) => {
   const reminderElementStr = 
-    `<div data-id="${reminder.id}" class="calendar-body__reminder">` +
-      `<div class="calendar-body__reminder-color" style="background-color: ${reminder.color}"></div>` +
-      `<span class="calendar-body__reminder-time">${reminder.formated_time}</span>` +
-      `<span class="calendar-body__reminder-title">${reminder.title}</span>` +
-    '</div>';
+    `<div
+      class="calendar-body__reminder"
+      data-id="${reminder.id}"
+      data-title="${reminder.title}"
+      data-date="${reminder.date}"
+      data-time="${reminder.military_time}"
+      data-color="${reminder.color}"
+    > 
+      <div class="calendar-body__reminder-color" style="background-color: ${reminder.color}"></div>
+      <span class="calendar-body__reminder-time">${reminder.formated_time}</span>
+      <span class="calendar-body__reminder-title">${reminder.title}</span>
+    </div>`;
 
   const $reminders = $(`[data-date="${reminder.date}"] .calendar-body__reminder`);
-
+  const $reminerToAdd = $(reminderElementStr);
   const reminderToAddTime = reminder.military_time;
   let notAdded = true;
 
   $reminders.each((_idx, element) => {
-    $reminder = $(element);
+    const $reminder = $(element);
     const reminderTime = $reminder.data('time');
 
     if (reminderTime > reminderToAddTime) {
-      $reminder.before(reminderElementStr);
+      $reminder.before($reminerToAdd);
       notAdded = false;
       return;
     }
   });
 
   if (notAdded) {
-    $(`[data-date="${reminder.date}"] .calendar-body__reminders`).append(reminderElementStr);
+    $(`[data-date="${reminder.date}"] .calendar-body__reminders`).append($reminerToAdd);
   }
+
+  $reminerToAdd.click(editReminder);
 };
 
 const newReminder = ({ currentTarget }) => {
@@ -118,7 +129,7 @@ const showReminderModal = () => {
   const reminderModal = new bootstrap.Modal($modal);
 
   $modal.on('hide.bs.modal', () => {
-    $('#reminder-form').trigger('reset');
+    clearReminderForm();
   });
 
   reminderModal.show();
@@ -126,4 +137,19 @@ const showReminderModal = () => {
 
 const hideReminderModal = () => {
   $('[data-bs-dismiss="modal"]')[0].click()
+};
+
+const clearReminderForm = () => {
+  $('#reminder-form').trigger('reset');
+  $('#reminder-id').val('');
+}
+
+const expandReminder = ({ currentTarget }) => {
+  window.event.stopPropagation();
+  $(currentTarget).siblings('.calendar-body__reminders').addClass('calendar-body__reminders--expanded');
+};
+
+const closeExpandReminder = ({ currentTarget }) => {
+  window.event.stopPropagation();
+  $(currentTarget).parent().removeClass('calendar-body__reminders--expanded');
 };
