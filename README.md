@@ -1,63 +1,39 @@
-## Instructions
+## The Challenge
 
-The goal of this exercise is to create both the backend and frontend of a calendar application using Ruby on Rails.
+This project is a challenge build based on [this requirements](README_original.md).
 
-### The Task
+## The Project
 
-In this task we are building a single month view of a calendar for the current month – along with the lines of the calendar image in this project.
+The project consists of a Calendar where we can add, edit and remove reminders.
 
-### Features & Requirements:
- - Reminder
- - - Ability to add a new “reminder” (max 30 chars) for a user entered day and time.
- - - Display reminders on the calendar view in the correct time order.
- - - Allow the user to select a color when creating a reminder and display it appropriately.
- - - Properly handle overflow when multiple reminders appear on the same date.
- - - Ability to edit reminders – including changing text, day and time & color.
- - - Ability to delete reminders.
- - - We need to persist the reminders in the database
- - Allow the user to choose any month other than the current month.
+## Development Setup
 
-### Notes:
+To make it easear we are using docker and docker-compose to setup the development environment. If you don't have it installed you can take a look at the links bellow:
 
-1. We appreciate good design, in this repository you have a reference picture, but you don't need to replicate it.
-2. Make sure to provide a tutorial on how to run your application
-3. Feel free to use any database
-4. Scaffold for tests and controllers *aren't* allowed, but it's encouraged for models
+ - <https://www.docker.com/>
+ - <https://docs.docker.com/compose>
 
-## Evaluation
-| Functionality     |                                                                | Possible Points |
-|-------------------|----------------------------------------------------------------|-----------------|
-|                   | Matches the proposed requirements                              |              20 |
-|                   | Implements REST correctly                                      |              15 |
-|                   | Separation of layers (Model, View, Controller).                |              15 |
-|                   | Feature tests (it can be controller, services, requests, etc.) |              10 |
-|                   | Models tests                                                   |              10 |
-|                   | Input validations                                              |               5 |
-|                   | Standard HTTP error codes                                      |               5 |
-| **Code Quality**  |                                                                |                 |
-|                   | Code formatting, readability, maintainability, etc             |               5 |
-|                   | Folders and packages structure                                 |               5 |
-| **DevOps**        |                                                                |                 |
-|                   | Docker image to build/run the project                          |               5 |
-| **Documentation** |                                                                |                 |
-|                   | Documentation about the work done, how to run the project, etc |               5 |
-| **Total**         |                                                                |             100 |
+### Preparing Database
+
+If you are running the app for the first time you will need to execute the command bellow to prepare the database.
 
 
-### Bonus Points:
-1. If you deploy the application in any server and share the link with us
-2. If provide thoughts on what you could improve on your code given more time and incentives
+```
+docker-compose run web rails db:prepare
 
-## F.A.Q.
+```
+This might take a while sinse it will also build the docker image on the first execution.
 
-### Is it necessary to build both the backend and frontend?
-Yes
+### Running the app
 
-### How do you evaluate the exercise?
-For every exercise we have two senior backend engineers from our team reviewing the code and the functionality and giving a score for each line item as shown in the previous table.
+After have docker and docker-compose installed you can simple execute the command bellow inside the project folder.
 
-### How can I deliver the exercise?
-To deliver the exercise, you should clone this repository and work on a new branch. When you'll consider it completed, just push the branch and open a Merge Request. Bonus points if you deploy it somewhere so we can check it running.
+```
+docker-compose up
+```
+or
+```
+docker-compose up -d
+```
+If you want it to be detached from your terminal.
 
-### Will I have access to the evaluation?
-By default we only send the result, however you can feel free to request the full evaluation and we will share it with you as well as the final score.
