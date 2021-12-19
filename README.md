@@ -37,3 +37,6 @@ docker-compose up -d
 ```
 If you want it to be detached from your terminal.
 
+## Demo
+
+You can try it out [here](https://rocky-reaches-49695.herokuapp.com/calendar).
