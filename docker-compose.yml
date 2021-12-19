@@ -2,12 +2,14 @@ version: "3"
 services:
   db:
     image: postgres
+    container_name: calendar_db
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: calendar123
   web:
     build: .
+    container_name: calendar_web
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myapp
