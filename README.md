@@ -10,8 +10,9 @@ The project consists of a Calendar where we can add, edit and remove reminders.
 
 To make it easear we are using docker and docker-compose to setup the development environment. If you don't have it installed you can take a look at the links bellow:
 
- - <https://www.docker.com/>
- - <https://docs.docker.com/compose>
+ - <a href="https://www.docker.com/" target="_blank">https://www.docker.com/</a>
+
+- <a href="https://docs.docker.com/compose" target="_blank">https://docs.docker.com/compose</a>
 
 ### Preparing Database
 
@@ -39,4 +40,4 @@ If you want it to be detached from your terminal.
 
 ## Demo
 
-You can try it out [here](https://rocky-reaches-49695.herokuapp.com/calendar).
+You can try it out <a href="https://rocky-reaches-49695.herokuapp.com/calendar" target="_blank">here</a>.
