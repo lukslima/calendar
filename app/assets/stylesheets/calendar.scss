@@ -81,7 +81,7 @@
     padding: 0 8px;
 
     &--smaller {
-      height: 30px;
+      height: 32px;
     }
 
     &--expanded {
@@ -149,12 +149,17 @@
   }
 
   &__reminder-more {
+    display: none;
     width: 100%;
     font-size: 12px;
     font-weight: bold;
     padding: 0 8px;
     position: absolute;
     bottom: 0;
+
+    &--visible {
+      display: block;
+    }
 
     &:hover {
       cursor: pointer;

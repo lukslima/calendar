@@ -51,9 +51,10 @@
                     </div>
                   <% end %>
                 </div>
-                <% if selected_reminders.length > reminders_limit %>
-                  <div class="calendar-body__reminder-more"><%= selected_reminders.length - reminders_limit %> More</div>
-                <% end %>
+                
+                <div class="calendar-body__reminder-more <%= "calendar-body__reminder-more--visible" if selected_reminders.length > reminders_limit %>">
+                  <span class="calendar-body__reminder-more-number"><%= selected_reminders.length - reminders_limit %></span> More
+                </div>
               </div>
             <% else %>
               <div class="calendar-body__row-item calendar-body__row-item--inactive"></div>

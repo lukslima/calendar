@@ -2,7 +2,7 @@ $(document).on('turbolinks:load', function() {
   $(".row-item-js").click(newReminder);
   $(".calendar-body__reminder").click(editReminder);
   $('#reminder-form').submit(saveReminder);
-  $('#remove-reminder-btn').click(removeReminder);
+  $('#remove-reminder-btn').click(deleteReminder);
   $('.calendar-body__reminder-more').click(expandReminder);
   $('.calendar-body__close-expanded-reminder').click(closeExpandReminder);
 }); 
@@ -25,7 +25,7 @@ const saveReminder = (e) => {
     dataType: 'json',
     success: function(data) {
       if (reminderId) {
-        $(`[data-id="${reminderId}"]`).remove();
+        removeReminderFromList(reminderId);
       }
       
       appendNewReminder(data);
@@ -68,11 +68,22 @@ const appendNewReminder = (reminder) => {
     }
   });
 
+  const $remindersContainer = $(`[data-date="${reminder.date}"] .calendar-body__reminders`);
+
   if (notAdded) {
-    $(`[data-date="${reminder.date}"] .calendar-body__reminders`).append($reminerToAdd);
+    $remindersContainer.append($reminerToAdd);
   }
 
   $reminerToAdd.click(editReminder);
+  updateReminderMore($remindersContainer);
+};
+
+const removeReminderFromList = (reminderId) => {
+  const $reminder = $(`[data-id="${reminderId}"]`);
+  const $reminderContainer = $reminder.parent();
+
+  $reminder.remove();
+  updateReminderMore($reminderContainer);
 };
 
 const newReminder = ({ currentTarget }) => {
@@ -105,7 +116,7 @@ const editReminder = ({ currentTarget }) => {
   showReminderModal();
 };
 
-const removeReminder = () => {
+const deleteReminder = () => {
   const $reminderForm = $('#reminder-form');
   const reminderId = $('#reminder-id').val();
   let url = `${$reminderForm.prop('action')}/${reminderId}`;
@@ -115,7 +126,7 @@ const removeReminder = () => {
     type: 'DELETE',
     dataType: 'json',
     success: function() {
-      $(`[data-id="${reminderId}"]`).remove();
+      removeReminderFromList(reminderId);
       hideReminderModal();
     },
     error: function(_xhr, er) {
@@ -152,4 +163,23 @@ const expandReminder = ({ currentTarget }) => {
 const closeExpandReminder = ({ currentTarget }) => {
   window.event.stopPropagation();
   $(currentTarget).parent().removeClass('calendar-body__reminders--expanded');
+};
+
+const updateReminderMore = ($remindersContainer) => {
+  const $reminders = $remindersContainer.find('.calendar-body__reminder');
+  const rowsCount = $('.calendar-body__row').length;
+  const remindersCount = $reminders.length;
+  const remindersLimit = rowsCount == 5 ? 3 : 2;
+  const visibleClass = 'calendar-body__reminder-more--visible';
+  const $reminderMore = $remindersContainer.siblings('.calendar-body__reminder-more');
+
+  if (remindersCount > remindersLimit) {
+    const remindersMoreNumber = remindersCount - remindersLimit; 
+
+    $reminderMore.addClass(visibleClass);
+    $reminderMore.find('.calendar-body__reminder-more-number').text(remindersMoreNumber);
+  } else {
+    $reminderMore.removeClass(visibleClass);
+    $reminderMore.find('.calendar-body__reminder-more-number').text('');
+  }
 };
